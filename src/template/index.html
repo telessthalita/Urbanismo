@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urbanismo Empreendimentos</title>
+    <meta name="description" content="">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header__container">
+            <a href="#" class="header__logo">
+                <span data-bind="header.logoText">URBANISMO</span><span class="header__logo-highlight" data-bind="header.logoHighlight">.</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="header__desktop-nav">
+                <nav class="nav">
+                    <ul class="nav__list" id="desktop-nav-list">
+                        <!-- Populated via JS -->
+                    </ul>
+                </nav>
+                <div class="header__socials">
+                    <a href="#" class="header__social-link" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="header__social-link" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+                    <a href="#" class="header__social-link" aria-label="Phone"><i data-lucide="phone"></i></a>
+                </div>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="header__mobile-toggle" id="mobile-menu-btn" aria-label="Abrir menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu__content">
+            <button class="mobile-menu__close" id="mobile-menu-close">
+                <i data-lucide="x"></i>
+            </button>
+            <nav class="mobile-nav">
+                <ul class="mobile-nav__list" id="mobile-nav-list">
+                    <!-- Populated via JS -->
+                </ul>
+            </nav>
+            <div class="mobile-menu__socials">
+                <a href="#"><i data-lucide="instagram"></i></a>
+                <a href="#"><i data-lucide="facebook"></i></a>
+                <a href="#"><i data-lucide="phone"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero" aria-label="Introdução">
+            <div class="hero__background">
+                <img src="" alt="" data-bind-src="hero.backgroundImage" data-bind-alt="hero.subtitle" class="hero__image">
+                <div class="hero__overlay"></div>
+            </div>
+            <div class="container hero__content">
+                <h1 class="hero__title fade-in-up">
+                    <span data-bind="hero.titleMain"></span> <br>
+                    <span class="hero__title-highlight" data-bind="hero.titleHighlight"></span>
+                </h1>
+                <p class="hero__subtitle fade-in-up delay-1" data-bind="hero.subtitle"></p>
+                <div class="hero__actions fade-in-up delay-2">
+                    <a href="" class="btn btn--primary" data-bind="hero.ctaPrimary.label" data-bind-href="hero.ctaPrimary.href"></a>
+                    <a href="" class="btn btn--outline" data-bind="hero.ctaSecondary.label" data-bind-href="hero.ctaSecondary.href"></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features section">
+            <div class="container">
+                <div class="section-header fade-in-up">
+                    <h2 class="section-title" data-bind="features.sectionTitle"></h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="grid grid--3" id="features-grid">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects section section--bg-light">
+            <div class="container">
+                <div class="section-header fade-in-up">
+                    <h2 class="section-title" data-bind="projects.sectionTitle"></h2>
+                    <div class="section-divider"></div>
+                    <p class="section-subtitle" data-bind="projects.sectionSubtitle"></p>
+                </div>
+
+                <div class="grid grid--3" id="projects-grid">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about section">
+            <div class="container">
+                <div class="about__grid">
+                    <div class="about__image-wrapper fade-in-left">
+                        <img src="" alt="Sobre nós" class="about__image" data-bind-src="about.image">
+                        <div class="about__decoration-box"></div>
+                        <div class="about__decoration-border"></div>
+                    </div>
+                    <div class="about__content fade-in-right">
+                        <span class="eyebrow" data-bind="about.label"></span>
+                        <h2 class="about__title" data-bind="about.title"></h2>
+                        <p class="text-body" data-bind="about.text1"></p>
+                        <p class="text-body" data-bind="about.text2"></p>
+                        
+                        <ul class="about__highlights" id="about-highlights">
+                            <!-- Populated via JS -->
+                        </ul>
+
+                        <button class="btn btn--outline-dark" data-bind="about.cta"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section">
+            <div class="container">
+                <div class="section-header fade-in-up">
+                    <span class="eyebrow" data-bind="contact.label"></span>
+                    <h2 class="section-title" data-bind="contact.title"></h2>
+                    <p class="section-subtitle" data-bind="contact.subtitle"></p>
+                </div>
+
+                <div class="contact__grid">
+                    <!-- Contact Info -->
+                    <div class="contact__info fade-in-left">
+                        <h3 class="contact__info-title" data-bind="contact.info.title"></h3>
+                        
+                        <div class="contact__item">
+                            <div class="contact__icon"><i data-lucide="map-pin"></i></div>
+                            <div>
+                                <p class="contact__label" data-bind="contact.info.address.label"></p>
+                                <p class="contact__value" id="contact-address"></p>
+                            </div>
+                        </div>
+
+                        <div class="contact__item">
+                            <div class="contact__icon"><i data-lucide="mail"></i></div>
+                            <div>
+                                <p class="contact__label" data-bind="contact.info.email.label"></p>
+                                <p class="contact__value" data-bind="contact.info.email.value"></p>
+                            </div>
+                        </div>
+
+                        <div class="contact__item">
+                            <div class="contact__icon"><i data-lucide="phone"></i></div>
+                            <div>
+                                <p class="contact__label" data-bind="contact.info.phone.label"></p>
+                                <p class="contact__value" data-bind="contact.info.phone.value"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form Area -->
+                    <!-- FORM_AREA_START -->
+                    <div class="contact__form-wrapper fade-in-right">
+                        <form id="contact-form" class="form">
+                            <div class="form__group">
+                                <label for="nome" class="form__label">Nome</label>
+                                <input type="text" id="nome" name="nome" class="form__input" required placeholder="Seu nome">
+                            </div>
+                            <div class="form__group">
+                                <label for="email" class="form__label">E-mail</label>
+                                <input type="email" id="email" name="email" class="form__input" required placeholder="seuemail@exemplo.com">
+                            </div>
+                            <div class="form__group">
+                                <label for="telefone" class="form__label">Telefone</label>
+                                <input type="tel" id="telefone" name="telefone" class="form__input" required placeholder="(00) 00000-0000">
+                            </div>
+                            <div class="form__group">
+                                <label for="mensagem" class="form__label">Mensagem</label>
+                                <textarea id="mensagem" name="mensagem" rows="4" class="form__input form__textarea" required placeholder="Digite sua mensagem"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn--primary btn--full" id="form-submit-btn" data-bind="contact.form.submitButton">
+                                ENVIAR MENSAGEM
+                            </button>
+                        </form>
+
+                        <!-- Success Message Modal/Overlay (Hidden by default) -->
+                        <div id="form-success" class="form-success hidden">
+                            <div class="form-success__content">
+                                <div class="form-success__icon"><i data-lucide="check-circle"></i></div>
+                                <h3 class="form-success__title">Mensagem Enviada!</h3>
+                                <p class="form-success__text" data-bind="contact.form.successMessage"></p>
+                                <button class="btn btn--primary" id="form-success-close">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FORM_AREA_END -->
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer__grid" id="footer-grid">
+            <!-- Brand populated via JS -->
+            <div class="footer__brand">
+                <a href="#" class="footer__logo">
+                    <span data-bind="header.logoText"></span><span class="header__logo-highlight" data-bind="header.logoHighlight">.</span>
+                </a>
+                <p class="footer__desc" data-bind="footer.brandDescription"></p>
+                <div class="footer__socials">
+                    <a href="#"><i data-lucide="instagram"></i></a>
+                    <a href="#"><i data-lucide="facebook"></i></a>
+                    <a href="#"><i data-lucide="linkedin"></i></a>
+                </div>
+            </div>
+            <!-- Links populated via JS -->
+        </div>
+        
+        <div class="container footer__bottom">
+            <p class="footer__copyright" data-bind="footer.copyright"></p>
+            <div class="footer__credit">
+                <span data-bind="footer.developer.label"></span>
+                <a href="" target="_blank" rel="noopener noreferrer" data-bind-href="footer.developer.url" class="footer__dev-link">
+                    <!-- Placeholder for logo or text -->
+                    <span data-bind="footer.developer.name"></span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="form-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
