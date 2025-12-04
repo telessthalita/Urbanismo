@@ -42,7 +42,6 @@ export default function App() {
           scroll-behavior: smooth;
         }
         
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
           width: 10px;
         }
@@ -57,7 +56,6 @@ export default function App() {
           background: #a8a8a8;
         }
 
-        /* Animations */
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -82,7 +80,6 @@ export default function App() {
           animation-delay: 0.2s;
         }
         
-        /* Selection Color */
         ::selection {
           background: #B38B59;
           color: white;

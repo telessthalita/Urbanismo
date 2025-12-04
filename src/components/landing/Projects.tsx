@@ -76,7 +76,6 @@ export function Projects() {
 
   return (
     <section id="projects" className="py-20 bg-[#F5F5F5] overflow-hidden relative">
-      {/* SECTION: PROJECTS START */}
       <link
         rel="stylesheet"
         type="text/css"
@@ -104,9 +103,7 @@ export function Projects() {
             </h2>
             <div className="w-24 h-1 bg-[#B38B59] mb-4"></div>
             {/* PROJECTS_SUBTITLE */}
-            <p className="text-gray-600 max-w-xl text-center">
-              {CONTENT.projects.subtitle}
-            </p>
+            <p className="text-gray-600 max-w-xl text-center">{CONTENT.projects.subtitle}</p>
           </motion.div>
         </div>
 
@@ -139,7 +136,10 @@ export function Projects() {
           <Slider {...settings}>
             {projects.map((project) => (
               <div key={project.id} className="h-full">
-                <div className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                <div 
+                  onClick={() => setSelectedProject(project)}
+                  className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col cursor-pointer"
+                >
                   <div className="relative h-64 md:h-72 overflow-hidden">
                     <ImageWithFallback
                       src={project.image}
@@ -160,13 +160,12 @@ export function Projects() {
                     <p className="text-gray-600 text-sm mb-6 flex-grow line-clamp-2">
                       {project.description}
                     </p>
-                    <button 
-                      onClick={() => setSelectedProject(project)}
-                      className="inline-flex items-center text-[#B38B59] text-xs font-bold uppercase tracking-widest hover:text-[#9a764a] transition-colors group/link bg-transparent border-none p-0 cursor-pointer w-fit"
+                    <span 
+                      className="inline-flex items-center text-[#B38B59] text-xs font-bold uppercase tracking-widest hover:text-[#9a764a] transition-colors group/link"
                     >
                       Ver Detalhes
                       <ChevronRight className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" />
-                    </button>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -275,7 +274,6 @@ export function Projects() {
           </>
         )}
       </AnimatePresence>
-      {/* SECTION: PROJECTS END */}
     </section>
   );
 }

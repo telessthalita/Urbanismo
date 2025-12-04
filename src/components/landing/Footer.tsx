@@ -10,7 +10,6 @@ export function Footer() {
 
   return (
     <footer className="bg-[#1A1A1A] text-white pt-16 pb-8 border-t border-gray-800">
-      {/* SECTION: FOOTER START */}
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -90,7 +89,6 @@ export function Footer() {
           </div>
         </div>
       </motion.div>
-      {/* SECTION: FOOTER END */}
     </footer>
   );
 }

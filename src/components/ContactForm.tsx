@@ -74,8 +74,6 @@ export function ContactForm() {
       id_projeto: selectedProjectId ? String(selectedProjectId) : "" // Envia o ID (campo técnico)
     };
 
-    console.log("Enviando payload:", payload);
-
     // 2. Envio para RD Station
     const rdContainer = document.getElementById('leads-c012a1399ae98558e6da');
     const rdForm = rdContainer?.querySelector('form');
@@ -103,9 +101,6 @@ export function ContactForm() {
         if (emailInput) setNativeValue(emailInput, payload.email);
         if (phoneInput) setNativeValue(phoneInput, payload.telefone);
 
-        // Log para debug dos campos encontrados
-        console.log("Campos encontrados no RD Form:", Array.from(rdForm.elements).map(el => (el as HTMLInputElement).name));
-
         // FUNÇÃO DE FORÇA BRUTA PARA CAMPOS CUSTOMIZADOS
         const setCustomField = (possibleNames: string[], value: string) => {
             let found = false;
@@ -113,7 +108,6 @@ export function ContactForm() {
             for (const name of possibleNames) {
                 const input = rdForm.querySelector(`input[name="${name}"]`) as HTMLInputElement;
                 if (input) {
-                    console.log(`Campo encontrado para ${name}, definindo valor:`, value);
                     input.value = value; // Atribuição direta
                     // Dispara eventos para garantir que scripts de terceiros peguem a mudança
                     input.dispatchEvent(new Event('input', { bubbles: true }));
@@ -125,7 +119,6 @@ export function ContactForm() {
             // 2. Se não encontrou nenhum, cria um campo com o primeiro nome da lista (o mais provável)
             if (!found) {
                 const nameToCreate = possibleNames[0];
-                console.log(`Campo não encontrado para ${nameToCreate}, criando input hidden.`);
                 const input = document.createElement('input');
                 input.type = 'hidden';
                 input.name = nameToCreate;
@@ -174,7 +167,6 @@ export function ContactForm() {
         console.error("Error submitting to RD Station:", error);
       }
     } else {
-      console.warn("RD Station form not found.");
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
     

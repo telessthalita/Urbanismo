@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Facebook, Instagram, Phone } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "../ui/sheet";
 import { cn } from "../ui/utils";
@@ -33,7 +33,6 @@ export function Header() {
       )}
     >
       
-      {/* SECTION: HEADER START */}
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <a href="/" className={cn(
@@ -114,7 +113,6 @@ export function Header() {
           </Sheet>
         </div>
       </div>
-      {/* SECTION: HEADER END */}
     </header>
   );
 }

@@ -6,7 +6,6 @@ import { CONTENT } from './ContentConfig';
 export function Features() {
   return (
     <section className="py-20 bg-white">
-      {/* SECTION: FEATURES START */}
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <motion.div
@@ -15,7 +14,6 @@ export function Features() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {/* FEATURES_TITLE */}
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#1A1A1A] mb-4">
               {CONTENT.features.title}
             </h2>
@@ -51,7 +49,6 @@ export function Features() {
           ))}
         </div>
       </div>
-      {/* SECTION: FEATURES END */}
     </section>
   );
 }

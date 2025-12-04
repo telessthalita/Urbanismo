@@ -8,7 +8,6 @@ import { CONTENT } from './ContentConfig';
 export function About() {
   return (
     <section id="about" className="py-20 md:py-32 bg-white overflow-hidden">
-      {/* SECTION: ABOUT START */}
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Image Column */}
@@ -20,7 +19,6 @@ export function About() {
             className="relative"
           >
             <div className="relative h-[500px] md:h-[600px] w-full overflow-hidden rounded-sm shadow-2xl">
-              {/* ABOUT_IMAGE */}
               <ImageWithFallback
                 src={CONTENT.about.image}
                 alt={CONTENT.about.imageAlt}
@@ -41,15 +39,12 @@ export function About() {
             transition={{ duration: 0.8 }}
             className="flex flex-col justify-center"
           >
-            {/* ABOUT_TAGLINE */}
             <span className="text-[#B38B59] font-bold text-sm tracking-widest uppercase mb-4">
               {CONTENT.about.tagline}
             </span>
-            {/* ABOUT_TITLE */}
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-[#1A1A1A] mb-8 leading-tight">
               {CONTENT.about.titlePrefix}<span className="italic text-[#B38B59]">{CONTENT.about.titleHighlight}</span>{CONTENT.about.titleSuffix}
             </h2>
-            {/* ABOUT_DESCRIPTION */}
             <p className="text-gray-600 text-lg mb-6 leading-relaxed">
               {CONTENT.about.description1}
             </p>
@@ -57,7 +52,6 @@ export function About() {
               {CONTENT.about.description2}
             </p>
             
-            {/* ABOUT_HIGHLIGHTS */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
               {CONTENT.about.highlights.map((item, index) => (
                 <div key={index} className="flex items-center space-x-3">
@@ -68,12 +62,9 @@ export function About() {
                 </div>
               ))}
             </div>
-
-            {/* REMOVED BUTTON AS PER USER REQUEST */}
           </motion.div>
         </div>
       </div>
-      {/* SECTION: ABOUT END */}
     </section>
   );
 }
