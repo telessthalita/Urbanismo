@@ -197,7 +197,7 @@ export function ContactForm() {
             type="text" 
             required 
             placeholder="Seu nome" 
-            className="bg-white border-gray-300 focus:border-[#B38B59] focus:ring-[#B38B59]"
+            className="bg-white border-gray-300 focus:border-[var(--primary)] focus:ring-[var(--primary)]"
           />
         </div>
 
@@ -209,7 +209,7 @@ export function ContactForm() {
             type="email" 
             required 
             placeholder="seuemail@exemplo.com" 
-            className="bg-white border-gray-300 focus:border-[#B38B59] focus:ring-[#B38B59]"
+            className="bg-white border-gray-300 focus:border-[var(--primary)] focus:ring-[var(--primary)]"
           />
         </div>
 
@@ -221,7 +221,7 @@ export function ContactForm() {
             type="tel" 
             required 
             placeholder="(00) 00000-0000" 
-            className="bg-white border-gray-300 focus:border-[#B38B59] focus:ring-[#B38B59]"
+            className="bg-white border-gray-300 focus:border-[var(--primary)] focus:ring-[var(--primary)]"
           />
         </div>
 
@@ -233,7 +233,7 @@ export function ContactForm() {
               name="project_select"
               value={selectedProjectId}
               onChange={(e) => setSelectedProjectId(e.target.value)}
-              className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B38B59] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
+              className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
             >
               <option value="">Selecione um projeto (opcional)</option>
               {CONTENT.projects.items.map((project) => (
@@ -259,14 +259,14 @@ export function ContactForm() {
             rows={4} 
             required 
             placeholder="Digite sua mensagem" 
-            className="bg-white border-gray-300 focus:border-[#B38B59] focus:ring-[#B38B59] resize-none"
+            className="bg-white border-gray-300 focus:border-[var(--primary)] focus:ring-[var(--primary)] resize-none"
           />
         </div>
 
         <Button 
           type="submit" 
           disabled={isLoading}
-          className="w-full bg-[#B38B59] hover:bg-[#9A764A] text-white font-medium tracking-wide py-6 disabled:opacity-70"
+          className="w-full bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white font-medium tracking-wide py-6 disabled:opacity-70"
         >
           {isLoading ? "ENVIANDO..." : "ENVIAR MENSAGEM"}
         </Button>

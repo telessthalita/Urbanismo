@@ -9,7 +9,7 @@ export function Footer() {
   const { footer, companyName, companyNameHighlight } = CONTENT;
 
   return (
-    <footer className="bg-[#1A1A1A] text-white pt-16 pb-8 border-t border-gray-800">
+    <footer className="bg-[var(--secondary)] text-white pt-16 pb-8 border-t border-gray-800">
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -21,14 +21,14 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-1">
             <a href="#" className="text-2xl font-serif font-bold tracking-tight text-white mb-6 block">
-              {companyName}<span className="text-[#B38B59]">{companyNameHighlight}</span>
+              {companyName}<span className="text-[var(--primary)]">{companyNameHighlight}</span>
             </a>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               {footer.description}
             </p>
             <div className="flex space-x-4">
               {footer.socials.map((social, index) => (
-                 <a key={index} href={social.href} className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-[#B38B59] hover:text-white transition-all">
+                 <a key={index} href={social.href} className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-[var(--primary)] hover:text-white transition-all">
                    {social.icon}
                  </a>
               ))}
@@ -37,28 +37,28 @@ export function Footer() {
 
           {/* Links */}
           <div className="col-span-1">
-            <h4 className="text-lg font-semibold mb-6 text-white border-l-2 border-[#B38B59] pl-3">{footer.menuTitle}</h4>
+            <h4 className="text-lg font-semibold mb-6 text-white border-l-2 border-[var(--primary)] pl-3">{footer.menuTitle}</h4>
             <ul className="space-y-3">
               {footer.menuItems.map((item, index) => (
-                <li key={index}><a href={item.href} className="text-gray-400 hover:text-[#B38B59] text-sm transition-colors">{item.label}</a></li>
+                <li key={index}><a href={item.href} className="text-gray-400 hover:text-[var(--primary)] text-sm transition-colors">{item.label}</a></li>
               ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div className="col-span-1">
-            <h4 className="text-lg font-semibold mb-6 text-white border-l-2 border-[#B38B59] pl-3">{footer.contactTitle}</h4>
+            <h4 className="text-lg font-semibold mb-6 text-white border-l-2 border-[var(--primary)] pl-3">{footer.contactTitle}</h4>
             <ul className="space-y-3 text-sm text-gray-400">
               <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-[#B38B59] shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 text-[var(--primary)] shrink-0 mt-0.5" />
                 <span>{CONTENT.contact.info.address.value[0]}<br />{CONTENT.contact.info.address.value[1]}</span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-[#B38B59] shrink-0" />
+                <Phone className="w-5 h-5 text-[var(--primary)] shrink-0" />
                 <span>{CONTENT.contact.info.phone.value}</span>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-[#B38B59] shrink-0" />
+                <Mail className="w-5 h-5 text-[var(--primary)] shrink-0" />
                 <span>{CONTENT.contact.info.email.value}</span>
               </li>
             </ul>

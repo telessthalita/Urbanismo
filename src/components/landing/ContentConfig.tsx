@@ -2,6 +2,24 @@ import React from 'react';
 import { Leaf, Map, Sun, MapPin, Phone, Mail, Facebook, Instagram, Linkedin } from 'lucide-react';
 import alfamaLogo from "figma:asset/bfd741d9166504d5621837cb581513e05f08eb9c.png";
 
+export const THEME = {
+  colors: {
+    primary: "#B38B59",      // Cor Principal (Dourado/Bronze)
+    primaryDark: "#9A764A",  // Cor Principal Escura (Hover)
+    secondary: "#1A1A1A",    // Cor Secundária (Preto/Cinza Escuro)
+    background: "#F5F5F5",   // Fundo Claro
+    surface: "#FFFFFF",      // Superfície (Cards, etc)
+    text: "#1A1A1A",         // Texto Principal
+    textLight: "#4B5563",    // Texto Secundário (Gray-600)
+  },
+  fonts: {
+    // Google Fonts Import URL
+    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap",
+    sans: "'Lato', sans-serif",
+    serif: "'Playfair Display', serif",
+  }
+};
+
 export const CONTENT = {
   // GLOBAL
   companyName: "URBANISMO",
@@ -142,15 +160,18 @@ export const CONTENT = {
     info: {
       address: {
         label: "Endereço",
-        value: ["Av. Paulista, 1000 - Bela Vista", "São Paulo - SP, 01310-100"]
+        value: ["Av. Paulista, 1000 - Bela Vista", "São Paulo - SP, 01310-100"],
+        icon: <MapPin className="w-5 h-5" />
       },
       email: {
         label: "E-mail",
-        value: "contato@urbanismo.com.br"
+        value: "contato@urbanismo.com.br",
+        icon: <Mail className="w-5 h-5" />
       },
       phone: {
         label: "Telefone",
-        value: "+55 (11) 99999-9999"
+        value: "+55 (11) 99999-9999",
+        icon: <Phone className="w-5 h-5" />
       }
     }
   },

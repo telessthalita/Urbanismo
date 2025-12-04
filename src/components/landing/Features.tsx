@@ -14,10 +14,10 @@ export function Features() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#1A1A1A] mb-4">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[var(--text-main)] mb-4">
               {CONTENT.features.title}
             </h2>
-            <div className="w-24 h-1 bg-[#B38B59] mx-auto"></div>
+            <div className="w-24 h-1 bg-[var(--primary)] mx-auto"></div>
           </motion.div>
         </div>
 
@@ -32,10 +32,10 @@ export function Features() {
             >
               <Card className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white rounded-lg overflow-hidden group h-full">
                 <CardHeader className="flex flex-col items-center pt-10 pb-4">
-                  <div className="p-4 bg-[#f5f5f5] rounded-full mb-4 group-hover:bg-[#B38B59]/10 transition-colors">
+                  <div className="p-4 bg-[var(--bg-light)] rounded-full mb-4 group-hover:bg-[var(--primary)]/10 transition-colors">
                     {feature.icon}
                   </div>
-                  <CardTitle className="text-xl font-serif font-semibold text-[#1A1A1A] text-center">
+                  <CardTitle className="text-xl font-serif font-semibold text-[var(--text-main)] text-center">
                     {feature.title}
                   </CardTitle>
                 </CardHeader>

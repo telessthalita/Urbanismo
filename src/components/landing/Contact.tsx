@@ -1,5 +1,4 @@
 import React from 'react';
-import { Mail, MapPin, Phone } from 'lucide-react';
 import { ContactForm } from "../ContactForm";
 import { motion } from "motion/react";
 import { CONTENT } from './ContentConfig';
@@ -15,10 +14,10 @@ export function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-[#B38B59] font-bold text-sm tracking-widest uppercase mb-2 block">
+          <span className="text-[var(--primary)] font-bold text-sm tracking-widest uppercase mb-2 block">
             {CONTENT.contact.tagline}
           </span>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#1A1A1A] mb-4">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-[var(--text-main)] mb-4">
             {CONTENT.contact.title}
           </h2>
           <p className="text-gray-600 max-w-xl mx-auto">
@@ -33,18 +32,18 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-1 space-y-8 bg-[#F5F5F5] p-10 rounded-lg h-fit"
+            className="lg:col-span-1 space-y-8 bg-[var(--bg-light)] p-10 rounded-lg h-fit"
           >
-            <h3 className="text-xl font-serif font-bold text-[#1A1A1A] mb-6">
+            <h3 className="text-xl font-serif font-bold text-[var(--text-main)] mb-6">
               Informações
             </h3>
             
             <div className="flex items-start space-x-4">
-              <div className="p-3 bg-white rounded-full text-[#B38B59] shadow-sm">
-                <MapPin className="w-5 h-5" />
+              <div className="p-3 bg-white rounded-full text-[var(--primary)] shadow-sm">
+                {CONTENT.contact.info.address.icon}
               </div>
               <div>
-                <p className="font-medium text-[#1A1A1A]">{CONTENT.contact.info.address.label}</p>
+                <p className="font-medium text-[var(--text-main)]">{CONTENT.contact.info.address.label}</p>
                 <p className="text-gray-600 text-sm leading-relaxed">
                   {CONTENT.contact.info.address.value[0]}<br />
                   {CONTENT.contact.info.address.value[1]}
@@ -53,11 +52,11 @@ export function Contact() {
             </div>
 
             <div className="flex items-start space-x-4">
-              <div className="p-3 bg-white rounded-full text-[#B38B59] shadow-sm">
-                <Mail className="w-5 h-5" />
+              <div className="p-3 bg-white rounded-full text-[var(--primary)] shadow-sm">
+                 {CONTENT.contact.info.email.icon}
               </div>
               <div>
-                <p className="font-medium text-[#1A1A1A]">{CONTENT.contact.info.email.label}</p>
+                <p className="font-medium text-[var(--text-main)]">{CONTENT.contact.info.email.label}</p>
                 <p className="text-gray-600 text-sm">
                   {CONTENT.contact.info.email.value}
                 </p>
@@ -65,11 +64,11 @@ export function Contact() {
             </div>
 
             <div className="flex items-start space-x-4">
-              <div className="p-3 bg-white rounded-full text-[#B38B59] shadow-sm">
-                <Phone className="w-5 h-5" />
+              <div className="p-3 bg-white rounded-full text-[var(--primary)] shadow-sm">
+                 {CONTENT.contact.info.phone.icon}
               </div>
               <div>
-                <p className="font-medium text-[#1A1A1A]">{CONTENT.contact.info.phone.label}</p>
+                <p className="font-medium text-[var(--text-main)]">{CONTENT.contact.info.phone.label}</p>
                 <p className="text-gray-600 text-sm">
                   {CONTENT.contact.info.phone.value}
                 </p>

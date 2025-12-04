@@ -37,9 +37,9 @@ export function Header() {
         {/* Logo */}
         <a href="/" className={cn(
           "text-2xl font-serif font-bold tracking-tight transition-colors",
-          isScrolled ? "text-gray-900" : "text-white"
+          isScrolled ? "text-[var(--text-main)]" : "text-white"
         )}>
-          {CONTENT.companyName}<span className="text-[#B38B59]">{CONTENT.companyNameHighlight}</span>
+          {CONTENT.companyName}<span className="text-[var(--primary)]">{CONTENT.companyNameHighlight}</span>
         </a>
 
         {/* Desktop Menu */}
@@ -50,7 +50,7 @@ export function Header() {
                 key={item.name} 
                 href={item.href}
                 className={cn(
-                  "text-sm uppercase tracking-widest transition-colors font-medium hover:text-[#B38B59]",
+                  "text-sm uppercase tracking-widest transition-colors font-medium hover:text-[var(--primary)]",
                   isScrolled ? "text-gray-600" : "text-white/90"
                 )}
               >
@@ -66,7 +66,7 @@ export function Header() {
           )}>
             {CONTENT.footer.socials.map((social, index) => (
                <a key={index} href={social.href} className={cn(
-                "transition-colors hover:text-[#B38B59]",
+                "transition-colors hover:text-[var(--primary)]",
                 isScrolled ? "text-gray-400" : "text-white/80"
               )}>
                 {social.icon}
@@ -96,7 +96,7 @@ export function Header() {
                   <a 
                     key={item.name} 
                     href={item.href}
-                    className="text-lg font-medium text-gray-900 hover:text-[#B38B59] py-2 border-b border-gray-100"
+                    className="text-lg font-medium text-[var(--text-main)] hover:text-[var(--primary)] py-2 border-b border-gray-100"
                   >
                     {item.name}
                   </a>
@@ -104,7 +104,7 @@ export function Header() {
               </nav>
               <div className="flex items-center space-x-4 mt-8">
                 {CONTENT.footer.socials.map((social, index) => (
-                  <a key={index} href={social.href} className="text-gray-500 hover:text-[#B38B59] transition-colors">
+                  <a key={index} href={social.href} className="text-gray-500 hover:text-[var(--primary)] transition-colors">
                     {social.icon}
                   </a>
                 ))}

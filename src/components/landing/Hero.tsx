@@ -29,7 +29,7 @@ export function Hero() {
           className="text-[#F2F2F2] font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-lg"
         >
           {CONTENT.hero.title} <br />
-          <span className="italic font-light text-[#B38B59] drop-shadow-md">{CONTENT.hero.titleHighlight}</span>
+          <span className="italic font-light text-[var(--primary)] drop-shadow-md">{CONTENT.hero.titleHighlight}</span>
         </motion.h1>
         
         <motion.p 
@@ -49,7 +49,7 @@ export function Hero() {
         >
           <a href={CONTENT.hero.ctaPrimaryLink}>
             <Button 
-              className="bg-[#B38B59] hover:bg-[#9a764a] text-white rounded-none px-8 py-6 text-sm uppercase tracking-widest min-w-[200px] shadow-lg"
+              className="bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white rounded-none px-8 py-6 text-sm uppercase tracking-widest min-w-[200px] shadow-lg"
             >
               {CONTENT.hero.ctaPrimaryLabel}
             </Button>

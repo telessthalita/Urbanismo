@@ -27,8 +27,8 @@ export function About() {
               />
             </div>
             {/* Decorative Box */}
-            <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-[#F5F5F5] -z-10 hidden md:block"></div>
-            <div className="absolute -top-8 -left-8 w-48 h-48 border-2 border-[#B38B59]/30 -z-10 hidden md:block"></div>
+            <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-[var(--bg-light)] -z-10 hidden md:block"></div>
+            <div className="absolute -top-8 -left-8 w-48 h-48 border-2 border-[var(--primary)]/30 -z-10 hidden md:block"></div>
           </motion.div>
 
           {/* Text Column */}
@@ -39,11 +39,11 @@ export function About() {
             transition={{ duration: 0.8 }}
             className="flex flex-col justify-center"
           >
-            <span className="text-[#B38B59] font-bold text-sm tracking-widest uppercase mb-4">
+            <span className="text-[var(--primary)] font-bold text-sm tracking-widest uppercase mb-4">
               {CONTENT.about.tagline}
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-[#1A1A1A] mb-8 leading-tight">
-              {CONTENT.about.titlePrefix}<span className="italic text-[#B38B59]">{CONTENT.about.titleHighlight}</span>{CONTENT.about.titleSuffix}
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-[var(--text-main)] mb-8 leading-tight">
+              {CONTENT.about.titlePrefix}<span className="italic text-[var(--primary)]">{CONTENT.about.titleHighlight}</span>{CONTENT.about.titleSuffix}
             </h2>
             <p className="text-gray-600 text-lg mb-6 leading-relaxed">
               {CONTENT.about.description1}
@@ -55,8 +55,8 @@ export function About() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
               {CONTENT.about.highlights.map((item, index) => (
                 <div key={index} className="flex items-center space-x-3">
-                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#B38B59]/20 flex items-center justify-center">
-                    <Check className="w-3 h-3 text-[#B38B59]" />
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[var(--primary)]/20 flex items-center justify-center">
+                    <Check className="w-3 h-3 text-[var(--primary)]" />
                   </div>
                   <span className="text-gray-700 text-sm">{item}</span>
                 </div>

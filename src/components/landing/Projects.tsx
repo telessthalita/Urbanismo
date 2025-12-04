@@ -11,7 +11,7 @@ function NextArrow(props: any) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 hover:bg-[#B38B59] text-[#1A1A1A] hover:text-white transition-all duration-300 rounded-l-lg shadow-lg focus:outline-none backdrop-blur-sm translate-x-1/2 hover:translate-x-0 md:translate-x-0 md:-right-4 group"
+      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 hover:bg-[var(--primary)] text-[var(--text-main)] hover:text-white transition-all duration-300 rounded-l-lg shadow-lg focus:outline-none backdrop-blur-sm translate-x-1/2 hover:translate-x-0 md:translate-x-0 md:-right-4 group"
       aria-label="Próximo projeto"
     >
       <ChevronRight className="w-6 h-6" />
@@ -24,7 +24,7 @@ function PrevArrow(props: any) {
   return (
     <button
       onClick={onClick}
-      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 hover:bg-[#B38B59] text-[#1A1A1A] hover:text-white transition-all duration-300 rounded-r-lg shadow-lg focus:outline-none backdrop-blur-sm -translate-x-1/2 hover:translate-x-0 md:translate-x-0 md:-left-4 group"
+      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 hover:bg-[var(--primary)] text-[var(--text-main)] hover:text-white transition-all duration-300 rounded-r-lg shadow-lg focus:outline-none backdrop-blur-sm -translate-x-1/2 hover:translate-x-0 md:translate-x-0 md:-left-4 group"
       aria-label="Projeto anterior"
     >
       <ChevronLeft className="w-6 h-6" />
@@ -79,13 +79,11 @@ export function Projects() {
       <link
         rel="stylesheet"
         type="text/css"
-        crossOrigin="anonymous"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
       />
       <link
         rel="stylesheet"
         type="text/css"
-        crossOrigin="anonymous"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
       />
       <div className="container mx-auto px-6">
@@ -103,7 +101,7 @@ export function Projects() {
             </h2>
             <div className="w-24 h-1 bg-[#B38B59] mb-4"></div>
             {/* PROJECTS_SUBTITLE */}
-            <p className="text-gray-600 max-w-xl text-center">{CONTENT.projects.subtitle}</p>
+            <p className="text-gray-600 max-w-xl text-center text-[15px] font-[Lato]">{CONTENT.projects.subtitle}</p>
           </motion.div>
         </div>
 
@@ -149,19 +147,19 @@ export function Projects() {
                     />
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                     
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#B38B59] rounded-sm shadow-sm">
+                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--primary)] rounded-sm shadow-sm">
                       {project.status}
                     </div>
                   </div>
                   <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="text-xl font-serif font-semibold text-[#1A1A1A] mb-2 group-hover:text-[#B38B59] transition-colors">
+                    <h3 className="text-xl font-serif font-semibold text-[var(--text-main)] mb-2 group-hover:text-[var(--primary)] transition-colors">
                       {project.title}
                     </h3>
                     <p className="text-gray-600 text-sm mb-6 flex-grow line-clamp-2">
                       {project.description}
                     </p>
                     <span 
-                      className="inline-flex items-center text-[#B38B59] text-xs font-bold uppercase tracking-widest hover:text-[#9a764a] transition-colors group/link"
+                      className="inline-flex items-center text-[var(--primary)] text-xs font-bold uppercase tracking-widest hover:text-[var(--primary-dark)] transition-colors group/link"
                     >
                       Ver Detalhes
                       <ChevronRight className="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" />
@@ -194,7 +192,7 @@ export function Projects() {
               >
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 z-10 p-2 bg-white/80 hover:bg-white text-gray-600 hover:text-[#B38B59] rounded-full transition-colors backdrop-blur-sm"
+                  className="absolute top-4 right-4 z-10 p-2 bg-white/80 hover:bg-white text-gray-600 hover:text-[var(--primary)] rounded-full transition-colors backdrop-blur-sm"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -214,8 +212,8 @@ export function Projects() {
                 {/* Modal Content */}
                 <div className="w-full md:w-1/2 p-8 overflow-y-auto bg-white">
                   <div className="hidden md:block mb-6">
-                    <h3 className="text-3xl font-serif font-bold text-[#1A1A1A] mb-2">{selectedProject.title}</h3>
-                    <div className="w-16 h-1 bg-[#B38B59]"></div>
+                    <h3 className="text-3xl font-serif font-bold text-[var(--text-main)] mb-2">{selectedProject.title}</h3>
+                    <div className="w-16 h-1 bg-[var(--primary)]"></div>
                   </div>
 
                   <p className="text-gray-600 leading-relaxed mb-8">
@@ -224,21 +222,21 @@ export function Projects() {
 
                   <div className="space-y-4 mb-8">
                     <div className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 text-[#B38B59] shrink-0 mt-0.5" />
+                      <MapPin className="w-5 h-5 text-[var(--primary)] shrink-0 mt-0.5" />
                       <div>
                         <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Localização</span>
                         <span className="text-gray-800 font-medium">{selectedProject.location}</span>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <Ruler className="w-5 h-5 text-[#B38B59] shrink-0 mt-0.5" />
+                      <Ruler className="w-5 h-5 text-[var(--primary)] shrink-0 mt-0.5" />
                       <div>
                         <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Área</span>
                         <span className="text-gray-800 font-medium">{selectedProject.size}</span>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <Calendar className="w-5 h-5 text-[#B38B59] shrink-0 mt-0.5" />
+                      <Calendar className="w-5 h-5 text-[var(--primary)] shrink-0 mt-0.5" />
                       <div>
                         <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Status</span>
                         <span className="text-gray-800 font-medium">{selectedProject.status}</span>
@@ -251,7 +249,7 @@ export function Projects() {
                     <ul className="grid grid-cols-1 gap-2">
                       {selectedProject.features.map((feature: string, idx: number) => (
                         <li key={idx} className="flex items-center gap-2 text-gray-600 text-sm">
-                          <CheckCircle2 className="w-4 h-4 text-[#B38B59]" />
+                          <CheckCircle2 className="w-4 h-4 text-[var(--primary)]" />
                           {feature}
                         </li>
                       ))}
@@ -264,7 +262,7 @@ export function Projects() {
                       window.dispatchEvent(new CustomEvent('projectInterest', { detail: selectedProject }));
                       setSelectedProject(null);
                     }}
-                    className="block w-full text-center bg-[#1A1A1A] hover:bg-[#B38B59] text-white font-bold uppercase tracking-widest py-4 rounded transition-colors"
+                    className="block w-full text-center bg-[var(--secondary)] hover:bg-[var(--primary)] text-white font-bold uppercase tracking-widest py-4 rounded transition-colors"
                   >
                     Tenho Interesse
                   </a>

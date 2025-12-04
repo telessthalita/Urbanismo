@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Home } from './components/landing/Home';
 import { ThankYou } from './components/landing/ThankYou';
-import { SEO } from './components/landing/SEO';
+import { THEME } from './components/landing/ContentConfig';
 
 export default function App() {
   // Simple client-side routing
@@ -23,21 +23,38 @@ export default function App() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+        @import url('${THEME.fonts.googleFontsUrl}');
 
         :root {
-          --font-sans: 'Lato', sans-serif;
-          --font-serif: 'Playfair Display', serif;
+          --font-sans: ${THEME.fonts.sans};
+          --font-serif: ${THEME.fonts.serif};
+          
+          --primary: ${THEME.colors.primary};
+          --primary-dark: ${THEME.colors.primaryDark};
+          --secondary: ${THEME.colors.secondary};
+          --bg-light: ${THEME.colors.background};
+          --surface: ${THEME.colors.surface};
+          --text-main: ${THEME.colors.text};
+          --text-light: ${THEME.colors.textLight};
         }
 
         body {
           font-family: var(--font-sans);
+          color: var(--text-main);
         }
 
         .font-serif {
           font-family: var(--font-serif);
         }
         
+        .text-primary { color: var(--primary); }
+        .bg-primary { background-color: var(--primary); }
+        .border-primary { border-color: var(--primary); }
+        
+        .hover\\:text-primary:hover { color: var(--primary); }
+        .hover\\:bg-primary:hover { background-color: var(--primary); }
+        .hover\\:bg-primary-dark:hover { background-color: var(--primary-dark); }
+
         html {
           scroll-behavior: smooth;
         }
@@ -81,7 +98,7 @@ export default function App() {
         }
         
         ::selection {
-          background: #B38B59;
+          background: var(--primary);
           color: white;
         }
       `}</style>
