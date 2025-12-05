@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { CONTENT } from './ContentConfig';
+import { CONTENT, THEME } from './ContentConfig';
 
 interface SEOProps {
   title?: string;
@@ -9,10 +9,14 @@ interface SEOProps {
   ogImage?: string;
 }
 
+// URL base da aplicação (usa variável de ambiente ou fallback)
+const APP_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_APP_URL) || 
+  (typeof window !== 'undefined' ? window.location.origin : 'https://urbanismo.figma.site');
+
 export const SEO: React.FC<SEOProps> = ({
   title = `${CONTENT.companyName} | ${CONTENT.hero.title} ${CONTENT.hero.titleHighlight}`,
   description = CONTENT.hero.subtitle,
-  canonicalUrl = "https://urbanismo.figma.site",
+  canonicalUrl = APP_URL,
   ogImage = CONTENT.hero.backgroundImage,
 }) => {
   const siteName = CONTENT.companyName;
@@ -53,7 +57,7 @@ export const SEO: React.FC<SEOProps> = ({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={canonicalUrl} />
-        <meta name="theme-color" content="#B38B59" />
+        <meta name="theme-color" content={THEME.colors.primary} />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />

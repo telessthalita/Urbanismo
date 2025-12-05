@@ -5,6 +5,12 @@ import { Textarea } from "./ui/textarea";
 import { Label } from "./ui/label";
 import { CONTENT } from "./landing/ContentConfig";
 
+// Configurações do RD Station via Environment Variables
+const RD_STATION_CONFIG = {
+  formToken: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_RD_STATION_FORM_TOKEN) || "leads-c012a1399ae98558e6da",
+  accountId: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_RD_STATION_ACCOUNT_ID) || "1f8c12a5a4fffa12fa0a913e76d237f9"
+};
+
 export function ContactForm() {
   const [isLoading, setIsLoading] = useState(false);
   
@@ -38,8 +44,8 @@ export function ContactForm() {
     script.onload = () => {
       if ((window as any).RDStationForms) {
         new (window as any).RDStationForms(
-          "leads-c012a1399ae98558e6da",
-          "1f8c12a5a4fffa12fa0a913e76d237f9"
+          RD_STATION_CONFIG.formToken,
+          RD_STATION_CONFIG.accountId
         ).createForm();
       }
     };
@@ -75,7 +81,7 @@ export function ContactForm() {
     };
 
     // 2. Envio para RD Station
-    const rdContainer = document.getElementById('leads-c012a1399ae98558e6da');
+    const rdContainer = document.getElementById(RD_STATION_CONFIG.formToken);
     const rdForm = rdContainer?.querySelector('form');
 
     if (rdForm) {
@@ -178,7 +184,7 @@ export function ContactForm() {
     <>
       {/* Container do Formulário RD Station (Invisível) */}
       <div 
-        id="leads-c012a1399ae98558e6da" 
+        id={RD_STATION_CONFIG.formToken} 
         role="main" 
         style={{ display: 'none', position: 'absolute', left: '-9999px' }} 
         aria-hidden="true"

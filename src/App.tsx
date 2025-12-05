@@ -1,10 +1,15 @@
-
 import React, { useEffect, useState } from 'react';
 import { Home } from './components/landing/Home';
 import { ThankYou } from './components/landing/ThankYou';
 import { THEME } from './components/landing/ContentConfig';
+import { validateEnvDevelopment } from './utils/validateEnv';
 
 export default function App() {
+  // Validar variáveis de ambiente (apenas em desenvolvimento)
+  useEffect(() => {
+    validateEnvDevelopment();
+  }, []);
+
   // Simple client-side routing
   const [path, setPath] = useState(window.location.pathname);
 
