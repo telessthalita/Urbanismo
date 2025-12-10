@@ -4,6 +4,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Label } from "./ui/label";
 import { CONTENT } from "./landing/ContentConfig";
+import { formConfig } from "../template/form-config";
 
 export function ContactForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,25 +32,49 @@ export function ContactForm() {
 
   // Load RD Station script
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://d335luupugsy2.cloudfront.net/js/rdstation-forms/stable/rdstation-forms.min.js";
-    script.async = true;
+    // Only load if provider is RD Station and we have config
+    if (formConfig.provider !== 'rd-station' || !formConfig.rdStation?.token || !formConfig.rdStation?.formId) {
+      return;
+    }
 
-    script.onload = () => {
-      if ((window as any).RDStationForms) {
-        new (window as any).RDStationForms(
-          "leads-c012a1399ae98558e6da",
-          "1f8c12a5a4fffa12fa0a913e76d237f9"
-        ).createForm();
-      }
+    const scriptId = 'rd-station-script';
+    let script = document.getElementById(scriptId) as HTMLScriptElement;
+
+    const initForm = () => {
+        // Ensure the container exists before initializing
+        const container = document.getElementById(formConfig.rdStation.formId);
+        if (container && (window as any).RDStationForms) {
+             try {
+                new (window as any).RDStationForms(
+                    formConfig.rdStation.formId,
+                    formConfig.rdStation.token
+                ).createForm();
+             } catch (error) {
+                 console.error("Failed to initialize RD Station form:", error);
+             }
+        }
     };
 
-    document.body.appendChild(script);
+    if (!script) {
+        script = document.createElement("script");
+        script.id = scriptId;
+        script.src = "https://d335luupugsy2.cloudfront.net/js/rdstation-forms/stable/rdstation-forms.min.js";
+        script.async = true;
+        script.onload = initForm;
+        document.body.appendChild(script);
+    } else {
+        // If script already exists, just init
+        if ((window as any).RDStationForms) {
+            initForm();
+        } else {
+            script.addEventListener('load', initForm);
+        }
+    }
 
     return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
+         if (script) {
+            script.removeEventListener('load', initForm);
+         }
     };
   }, []);
 
@@ -75,99 +100,107 @@ export function ContactForm() {
     };
 
     // 2. Envio para RD Station
-    const rdContainer = document.getElementById('leads-c012a1399ae98558e6da');
-    const rdForm = rdContainer?.querySelector('form');
+    if (formConfig.provider === 'rd-station' && formConfig.rdStation?.formId) {
+        const rdContainer = document.getElementById(formConfig.rdStation.formId);
+        const rdForm = rdContainer?.querySelector('form');
 
-    if (rdForm) {
-      try {
-        // Função auxiliar para preencher inputs nativos
-        const setNativeValue = (element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, value: string) => {
-          const lastValue = element.value;
-          element.value = value;
-          const event = new Event('input', { bubbles: true });
-          const tracker = (element as any)._valueTracker;
-          if (tracker) {
-            tracker.setValue(lastValue);
-          }
-          element.dispatchEvent(event);
-        };
+        if (rdForm) {
+            try {
+                // Função auxiliar para preencher inputs nativos
+                const setNativeValue = (element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, value: string) => {
+                    if (!element) return;
+                    const lastValue = element.value;
+                    element.value = value;
+                    const event = new Event('input', { bubbles: true });
+                    const tracker = (element as any)._valueTracker;
+                    if (tracker) {
+                        tracker.setValue(lastValue);
+                    }
+                    element.dispatchEvent(event);
+                };
 
-        // Mapeamento de campos padrão do RD
-        const nameInput = rdForm.querySelector('input[name="name"]') as HTMLInputElement;
-        const emailInput = rdForm.querySelector('input[name="email"]') as HTMLInputElement;
-        const phoneInput = (rdForm.querySelector('input[name="mobile_phone"]') || rdForm.querySelector('input[name="personal_phone"]')) as HTMLInputElement;
-        
-        if (nameInput) setNativeValue(nameInput, payload.nome);
-        if (emailInput) setNativeValue(emailInput, payload.email);
-        if (phoneInput) setNativeValue(phoneInput, payload.telefone);
+                // Mapeamento de campos padrão do RD
+                const nameInput = rdForm.querySelector('input[name="name"]') as HTMLInputElement;
+                const emailInput = rdForm.querySelector('input[name="email"]') as HTMLInputElement;
+                const phoneInput = (rdForm.querySelector('input[name="mobile_phone"]') || rdForm.querySelector('input[name="personal_phone"]')) as HTMLInputElement;
+                
+                if (nameInput) setNativeValue(nameInput, payload.nome);
+                if (emailInput) setNativeValue(emailInput, payload.email);
+                if (phoneInput) setNativeValue(phoneInput, payload.telefone);
 
-        // FUNÇÃO DE FORÇA BRUTA PARA CAMPOS CUSTOMIZADOS
-        const setCustomField = (possibleNames: string[], value: string) => {
-            let found = false;
-            // 1. Tenta encontrar um campo existente
-            for (const name of possibleNames) {
-                const input = rdForm.querySelector(`input[name="${name}"]`) as HTMLInputElement;
-                if (input) {
-                    input.value = value; // Atribuição direta
-                    // Dispara eventos para garantir que scripts de terceiros peguem a mudança
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                    input.dispatchEvent(new Event('change', { bubbles: true }));
-                    found = true;
+                // FUNÇÃO DE FORÇA BRUTA PARA CAMPOS CUSTOMIZADOS
+                const setCustomField = (possibleNames: string[], value: string) => {
+                    let found = false;
+                    // 1. Tenta encontrar um campo existente
+                    for (const name of possibleNames) {
+                        const input = rdForm.querySelector(`input[name="${name}"]`) as HTMLInputElement;
+                        if (input) {
+                            input.value = value; // Atribuição direta
+                            // Dispara eventos para garantir que scripts de terceiros peguem a mudança
+                            input.dispatchEvent(new Event('input', { bubbles: true }));
+                            input.dispatchEvent(new Event('change', { bubbles: true }));
+                            found = true;
+                        }
+                    }
+                    
+                    // 2. Se não encontrou nenhum, cria um campo com o primeiro nome da lista (o mais provável)
+                    if (!found) {
+                        const nameToCreate = possibleNames[0];
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = nameToCreate;
+                        input.value = value;
+                        rdForm.appendChild(input);
+                    }
+                };
+
+                // TRATAMENTO: CAMPO 'PROJETO' (NOME)
+                // Tenta todas as variantes possíveis para "Nome do Projeto"
+                setCustomField(
+                    ['projeto', 'nome_projeto', 'imovel', 'empreendimento', 'interesse'], 
+                    payload.projeto
+                );
+
+                // TRATAMENTO: CAMPO 'ID_PROJETO' (TÉCNICO)
+                // Configurado explicitamente no RD Station como "id_projeto"
+                setCustomField(
+                    ['id_projeto'],
+                    payload.id_projeto
+                );
+
+                // Mensagem
+                const messageInput = rdForm.querySelector('textarea, input[name="message"], input[name="mensagem"]') as HTMLInputElement;
+                if (messageInput) {
+                    setNativeValue(messageInput, payload.mensagem);
                 }
+                
+                // Submit via Iframe
+                let iframe = document.getElementById('rd-submission-iframe') as HTMLIFrameElement;
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.id = 'rd-submission-iframe';
+                    iframe.name = 'rd-submission-iframe';
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                }
+                
+                rdForm.target = 'rd-submission-iframe';
+                rdForm.submit();
+                
+                // Pequeno delay para garantir o envio antes do redirect
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+            } catch (error) {
+                console.error("Error submitting to RD Station:", error);
             }
-            
-            // 2. Se não encontrou nenhum, cria um campo com o primeiro nome da lista (o mais provável)
-            if (!found) {
-                const nameToCreate = possibleNames[0];
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = nameToCreate;
-                input.value = value;
-                rdForm.appendChild(input);
-            }
-        };
-
-        // TRATAMENTO: CAMPO 'PROJETO' (NOME)
-        // Tenta todas as variantes possíveis para "Nome do Projeto"
-        setCustomField(
-            ['projeto', 'nome_projeto', 'imovel', 'empreendimento', 'interesse'], 
-            payload.projeto
-        );
-
-        // TRATAMENTO: CAMPO 'ID_PROJETO' (TÉCNICO)
-        // Configurado explicitamente no RD Station como "id_projeto"
-        setCustomField(
-            ['id_projeto'],
-            payload.id_projeto
-        );
-
-        // Mensagem
-        const messageInput = rdForm.querySelector('textarea, input[name="message"], input[name="mensagem"]') as HTMLInputElement;
-        if (messageInput) {
-            setNativeValue(messageInput, payload.mensagem);
+        } else {
+            console.warn("RD Station form not found in DOM. Submission simulation only.");
+            await new Promise(resolve => setTimeout(resolve, 1000));
         }
-        
-        // Submit via Iframe
-        let iframe = document.getElementById('rd-submission-iframe') as HTMLIFrameElement;
-        if (!iframe) {
-          iframe = document.createElement('iframe');
-          iframe.id = 'rd-submission-iframe';
-          iframe.name = 'rd-submission-iframe';
-          iframe.style.display = 'none';
-          document.body.appendChild(iframe);
-        }
-        
-        rdForm.target = 'rd-submission-iframe';
-        rdForm.submit();
-        
-        // Pequeno delay para garantir o envio antes do redirect
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-      } catch (error) {
-        console.error("Error submitting to RD Station:", error);
-      }
     } else {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+        // Fallback or other provider logic
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        console.log("Simulated submission (RD Station not configured)");
     }
     
     setIsLoading(false);
@@ -177,12 +210,14 @@ export function ContactForm() {
   return (
     <>
       {/* Container do Formulário RD Station (Invisível) */}
-      <div 
-        id="leads-c012a1399ae98558e6da" 
-        role="main" 
-        style={{ display: 'none', position: 'absolute', left: '-9999px' }} 
-        aria-hidden="true"
-      ></div>
+      {formConfig.provider === 'rd-station' && formConfig.rdStation?.formId && (
+        <div 
+            id={formConfig.rdStation.formId}
+            role="main" 
+            style={{ display: 'none', position: 'absolute', left: '-9999px' }} 
+            aria-hidden="true"
+        ></div>
+      )}
 
       <form
         ref={formRef}
@@ -268,7 +303,7 @@ export function ContactForm() {
           disabled={isLoading}
           className="w-full bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white font-medium tracking-wide py-6 disabled:opacity-70"
         >
-          {isLoading ? "ENVIANDO..." : "ENVIAR MENSAGEM"}
+          {isLoading ? (formConfig.messages?.loadingText || "ENVIANDO...") : (formConfig.messages?.submitText || "ENVIAR MENSAGEM")}
         </Button>
       </form>
     </>
