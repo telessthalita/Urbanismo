@@ -2,7 +2,7 @@
 
 Este projeto foi arquitetado para ser uma **fábrica de Landing Pages**. Você pode gerar sites completamente diferentes (visual e conteúdo) para novos clientes apenas editando **um único arquivo de configuração**.
 
-## ⚡ Como criar um novo site em 5 minutos
+## ⚡ Como criar um novo site 
 
 A filosofia deste template é: **Código fixo, Configuração dinâmica.**
 
@@ -14,7 +14,7 @@ Copie a pasta deste projeto ou clone o repositório para uma nova pasta com o no
 npm install
 ```
 
-### 2. A Mágica (O Único Arquivo que Importa)
+### 2. Personalização (O Único Arquivo que Importa)
 Abra o arquivo:
 👉 **`src/components/landing/ContentConfig.tsx`**
 
@@ -41,17 +41,7 @@ export const THEME = {
 ```
 
 #### B. Configure o Formulário (RD Station)
-Role até `formConfig`. Apenas troque os tokens:
-
-```typescript
-  formConfig: {
-    provider: 'rd-station',
-    rdStation: {
-      token: 'TOKEN_DO_CLIENTE', // Token público do RD
-      formId: 'ID_DO_FORMULARIO' // ID do formulário (ex: leads-xyz...)
-    }
-  }
-```
+Role até `formConfig`. Apenas troque os tokens
 
 #### C. Atualize o Conteúdo
 Edite o objeto `CONTENT`. Altere textos, links e imagens para cada seção:
