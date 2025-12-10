@@ -248,9 +248,9 @@ export function Projects() {
                     <h4 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-4">Diferenciais</h4>
                     <ul className="grid grid-cols-1 gap-2">
                       {selectedProject.features.map((feature: string, idx: number) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-5 h-5 text-[var(--primary)] shrink-0 mt-0.5" />
-                          <span className="text-gray-700">{feature}</span>
+                        <li key={idx} className="flex items-center gap-2 text-gray-600 text-sm">
+                          <CheckCircle2 className="w-4 h-4 text-[var(--primary)]" />
+                          {feature}
                         </li>
                       ))}
                     </ul>
