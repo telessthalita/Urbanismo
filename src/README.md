@@ -1,118 +1,91 @@
-# Template de Landing Page Premium (React + Tailwind + Radix UI)
+# Template de Landing Page Premium (React)
 
-Este projeto é um template de Landing Page "premium" altamente configurável, desenvolvido para o setor imobiliário/arquitetura, mas adaptável para qualquer nicho que exija elegância e sofisticação.
+Este projeto foi arquitetado para ser uma **fábrica de Landing Pages**. Você pode gerar sites completamente diferentes (visual e conteúdo) para novos clientes apenas editando **um único arquivo de configuração**.
 
-## 🚀 Características Principais
+## ⚡ Como criar um novo site em 5 minutos
 
-- **100% Configurável**: Todo o conteúdo (textos, imagens, links) e a identidade visual (cores, fontes) são controlados por um único arquivo de configuração.
-- **Design Premium**: Layout sofisticado utilizando Tailwind CSS e componentes Radix UI.
-- **Integração RD Station**: Formulário de contato já integrado, com envio de campos personalizados (ID e Nome do Projeto).
-- **Responsividade**: Totalmente adaptado para mobile, tablet e desktop.
+A filosofia deste template é: **Código fixo, Configuração dinâmica.**
 
----
-
-## 🛠️ Como Usar Este Template
-
-Siga os passos abaixo para gerar um novo projeto a partir deste template.
-
-### 1. Instalação
-
-Clone este repositório ou copie os arquivos para o novo diretório do projeto.
+### 1. Preparação
+Copie a pasta deste projeto ou clone o repositório para uma nova pasta com o nome do cliente.
 
 ```bash
 # Instale as dependências
 npm install
 ```
 
-### 2. Personalização de Conteúdo e Identidade Visual
+### 2. A Mágica (O Único Arquivo que Importa)
+Abra o arquivo:
+👉 **`src/components/landing/ContentConfig.tsx`**
 
-Toda a personalização é centralizada no arquivo:
-`src/components/landing/ContentConfig.tsx`
+É aqui que tudo acontece. Você não precisa tocar em HTML ou CSS.
 
-#### Alterando o Tema (Cores e Fontes)
-No objeto `THEME`, você pode definir as cores principais e as fontes do Google Fonts.
+#### A. Mude a Identidade Visual (Cores e Fontes)
+No início do arquivo, edite a constante `THEME`:
 
-```javascript
+```typescript
 export const THEME = {
   colors: {
-    primary: "#B38B59",      // Cor Principal
-    primaryDark: "#9A764A",  // Cor Hover
-    // ... outras cores
+    primary: "#0055FF",      // Mude a cor principal do cliente
+    primaryDark: "#003399",  // Cor ao passar o mouse
+    secondary: "#111111",    // Cor de fundo escura/rodapé
+    // ...
   },
   fonts: {
-    googleFontsUrl: "...",   // URL do Google Fonts
-    sans: "'Lato', sans-serif",
-    serif: "'Playfair Display', serif",
+    // Cole a URL do Google Fonts que o cliente usa
+    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap",
+    sans: "'Roboto', sans-serif",
+    // ...
   }
 };
 ```
 
-#### Alterando Textos e Imagens
-No objeto `CONTENT`, você altera os textos de cada seção (Hero, Features, Projects, About, Contact, Footer).
+#### B. Configure o Formulário (RD Station)
+Role até `formConfig`. Apenas troque os tokens:
 
-```javascript
-export const CONTENT = {
-  companyName: "NOVA MARCA",
-  hero: {
-    title: "SEU TÍTULO",
-    // ...
-  },
-  // ...
-};
+```typescript
+  formConfig: {
+    provider: 'rd-station',
+    rdStation: {
+      token: 'TOKEN_DO_CLIENTE', // Token público do RD
+      formId: 'ID_DO_FORMULARIO' // ID do formulário (ex: leads-xyz...)
+    }
+  }
 ```
 
-### 3. Configuração do RD Station
+#### C. Atualize o Conteúdo
+Edite o objeto `CONTENT`. Altere textos, links e imagens para cada seção:
+- `companyName`: Nome da empresa no topo.
+- `hero`: A capa do site (título, subtítulo, imagem de fundo).
+- `features`: Os diferenciais (ícones e textos).
+- `projects`: Lista de projetos/produtos (o carrossel).
+- `contact`: Endereço, email, telefone.
 
-A integração com o RD Station está localizada no componente:
-`src/components/ContactForm.tsx`
+### 3. Publicação
+Quando terminar de editar o arquivo de configuração:
 
-Para conectar com sua conta do RD Station, você precisará alterar os identificadores do formulário.
-
-1. Abra o arquivo `src/components/ContactForm.tsx`.
-2. Localize o `useEffect` que carrega o script do RD Station (linhas ~40-43) e atualize os parâmetros do construtor `RDStationForms`:
-
-```javascript
-new (window as any).RDStationForms(
-  "SEU_TOKEN_DO_FORMULARIO", // Ex: leads-c012a1399ae98558e6da
-  "SEU_ID_DA_CONTA"          // Ex: 1f8c12a5a4fffa12fa0a913e76d237f9
-).createForm();
-```
-
-3. Atualize também o ID da `div` container (linha ~181) para corresponder ao seu token do formulário:
-
-```jsx
-<div 
-  id="SEU_TOKEN_DO_FORMULARIO" // Ex: leads-c012a1399ae98558e6da
-  ...
-></div>
-```
-
-**Nota:** O formulário envia automaticamente campos personalizados `projeto` (nome do projeto) e `id_projeto` (identificador técnico) se o usuário tiver selecionado um interesse. Certifique-se de que esses campos existem ou estão mapeados no seu RD Station se desejar capturá-los.
-
-### 4. Executando o Projeto
-
-Para rodar o ambiente de desenvolvimento:
-
-```bash
-npm run dev
-```
-
-Para gerar a versão de produção:
-
-```bash
-npm run build
-```
+1. Teste localmente:
+   ```bash
+   npm run dev
+   ```
+2. Gere os arquivos para produção:
+   ```bash
+   npm run build
+   ```
+3. A pasta `dist` conterá o site pronto para ser subido em qualquer hospedagem (Vercel, Netlify, Hostgator, etc).
 
 ---
 
-## 📂 Estrutura de Pastas Importantes
+## 📂 Visão Geral da Estrutura
 
-- `src/components/landing/ContentConfig.tsx`: **Arquivo Principal de Configuração**.
-- `src/components/ContactForm.tsx`: Lógica do formulário e integração RD Station.
-- `src/styles/globals.css`: Estilos globais e variáveis CSS (geradas dinamicamente pelo App).
-- `src/imports/`: Onde ficam os SVGs e assets estáticos importados.
+Embora você só precise mexer no arquivo de configuração, aqui está onde as coisas ficam se você precisar de customizações avançadas:
 
-## 🎨 Dicas de Design
+- **`src/components/landing/ContentConfig.tsx`**: 📍 **Edite aqui.** O cérebro do site.
+- `src/components/ContactForm.tsx`: Lógica do formulário (já configurada para ler o config).
+- `src/components/landing/`: Componentes visuais (Hero, Footer, etc) que leem o config.
+- `src/styles/globals.css`: Estilos globais (as variáveis de cor são injetadas via JS no App.tsx).
 
-- **Imagens**: Utilize imagens de alta qualidade para manter o aspecto "premium". O template usa `aspect-ratio` e `object-cover` para garantir que as imagens se adaptem bem, mas proporções consistentes ajudam.
-- **Cores**: A cor `primary` é usada extensivamente em botões, ícones e detalhes. Escolha uma cor que tenha bom contraste sobre fundo branco e escuro.
+## 🎨 Dicas para Personalização
+
+- **Imagens**: Use links externos (Unsplash, S3) ou coloque imagens na pasta `public` e use o caminho `/nome-da-imagem.jpg`.
+- **Ícones**: O projeto usa a biblioteca `lucide-react`. Se precisar de ícones diferentes nos Diferenciais (`features`), você precisará importar o ícone no arquivo `ContentConfig.tsx` (ex: `import { Wallet } from 'lucide-react'`).

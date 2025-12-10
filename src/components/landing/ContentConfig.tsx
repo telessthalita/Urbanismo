@@ -198,5 +198,23 @@ export const CONTENT = {
       url: "https://alfamaweb.com.br",
       logo: alfamaLogo
     }
+  },
+
+  // FORM CONFIGURATION (RD Station / Contact)
+  formConfig: {
+    // Provider options: 'rd-station', 'custom-endpoint', 'none'
+    provider: 'rd-station', 
+    
+    rdStation: {
+      token: '1f8c12a5a4fffa12fa0a913e76d237f9',
+      formId: 'leads-c012a1399ae98558e6da'
+    },
+    
+    messages: {
+      successTitle: 'Mensagem Enviada!',
+      successText: 'Obrigado pelo seu contato. Recebemos sua mensagem e retornaremos em breve.',
+      loadingText: 'ENVIANDO...',
+      submitText: 'ENVIAR MENSAGEM'
+    }
   }
 };

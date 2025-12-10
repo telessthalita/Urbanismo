@@ -4,7 +4,6 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Label } from "./ui/label";
 import { CONTENT } from "./landing/ContentConfig";
-import { formConfig } from "../template/form-config";
 
 export function ContactForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,6 +12,8 @@ export function ContactForm() {
   const [selectedProjectId, setSelectedProjectId] = useState<string | number>("");
   
   const formRef = useRef<HTMLFormElement>(null);
+  const { formConfig } = CONTENT; // Use config from ContentConfig
+  const { provider, rdStation, messages } = formConfig || {};
 
   // Listen for project interest events from the Projects component
   useEffect(() => {
@@ -32,51 +33,39 @@ export function ContactForm() {
 
   // Load RD Station script
   useEffect(() => {
-    // Only load if provider is RD Station and we have config
-    if (formConfig.provider !== 'rd-station' || !formConfig.rdStation?.token || !formConfig.rdStation?.formId) {
+    if (provider !== 'rd-station' || !rdStation?.token || !rdStation?.formId) {
       return;
     }
 
     const scriptId = 'rd-station-script';
-    let script = document.getElementById(scriptId) as HTMLScriptElement;
+    // Check if script already exists
+    if (document.getElementById(scriptId)) return;
 
-    const initForm = () => {
-        // Ensure the container exists before initializing
-        const container = document.getElementById(formConfig.rdStation.formId);
-        if (container && (window as any).RDStationForms) {
-             try {
-                new (window as any).RDStationForms(
-                    formConfig.rdStation.formId,
-                    formConfig.rdStation.token
-                ).createForm();
-             } catch (error) {
-                 console.error("Failed to initialize RD Station form:", error);
-             }
+    const script = document.createElement("script");
+    script.id = scriptId;
+    script.src = "https://d335luupugsy2.cloudfront.net/js/rdstation-forms/stable/rdstation-forms.min.js";
+    script.async = true;
+
+    script.onload = () => {
+      if ((window as any).RDStationForms) {
+        try {
+            new (window as any).RDStationForms(
+            rdStation.formId,
+            rdStation.token
+            ).createForm();
+        } catch (error) {
+            console.error("RD Station Form Init Error:", error);
         }
+      }
     };
 
-    if (!script) {
-        script = document.createElement("script");
-        script.id = scriptId;
-        script.src = "https://d335luupugsy2.cloudfront.net/js/rdstation-forms/stable/rdstation-forms.min.js";
-        script.async = true;
-        script.onload = initForm;
-        document.body.appendChild(script);
-    } else {
-        // If script already exists, just init
-        if ((window as any).RDStationForms) {
-            initForm();
-        } else {
-            script.addEventListener('load', initForm);
-        }
-    }
+    document.body.appendChild(script);
 
+    // Cleanup not strictly necessary for global script but good practice if SPA routing
     return () => {
-         if (script) {
-            script.removeEventListener('load', initForm);
-         }
+      // We don't remove script to avoid re-downloading on nav back
     };
-  }, []);
+  }, [provider, rdStation]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -100,15 +89,14 @@ export function ContactForm() {
     };
 
     // 2. Envio para RD Station
-    if (formConfig.provider === 'rd-station' && formConfig.rdStation?.formId) {
-        const rdContainer = document.getElementById(formConfig.rdStation.formId);
+    if (provider === 'rd-station' && rdStation?.formId) {
+        const rdContainer = document.getElementById(rdStation.formId);
         const rdForm = rdContainer?.querySelector('form');
 
         if (rdForm) {
             try {
                 // Função auxiliar para preencher inputs nativos
                 const setNativeValue = (element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, value: string) => {
-                    if (!element) return;
                     const lastValue = element.value;
                     element.value = value;
                     const event = new Event('input', { bubbles: true });
@@ -177,11 +165,11 @@ export function ContactForm() {
                 // Submit via Iframe
                 let iframe = document.getElementById('rd-submission-iframe') as HTMLIFrameElement;
                 if (!iframe) {
-                    iframe = document.createElement('iframe');
-                    iframe.id = 'rd-submission-iframe';
-                    iframe.name = 'rd-submission-iframe';
-                    iframe.style.display = 'none';
-                    document.body.appendChild(iframe);
+                iframe = document.createElement('iframe');
+                iframe.id = 'rd-submission-iframe';
+                iframe.name = 'rd-submission-iframe';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
                 }
                 
                 rdForm.target = 'rd-submission-iframe';
@@ -194,13 +182,12 @@ export function ContactForm() {
                 console.error("Error submitting to RD Station:", error);
             }
         } else {
-            console.warn("RD Station form not found in DOM. Submission simulation only.");
+            // RD form not ready or blocked, proceed with mock/fallback
             await new Promise(resolve => setTimeout(resolve, 1000));
         }
     } else {
-        // Fallback or other provider logic
+        // Mock submission
         await new Promise(resolve => setTimeout(resolve, 1000));
-        console.log("Simulated submission (RD Station not configured)");
     }
     
     setIsLoading(false);
@@ -210,11 +197,11 @@ export function ContactForm() {
   return (
     <>
       {/* Container do Formulário RD Station (Invisível) */}
-      {formConfig.provider === 'rd-station' && formConfig.rdStation?.formId && (
+      {provider === 'rd-station' && rdStation?.formId && (
         <div 
-            id={formConfig.rdStation.formId}
+            id={rdStation.formId}
             role="main" 
-            style={{ display: 'none', position: 'absolute', left: '-9999px' }} 
+            style={{ position: 'absolute', left: '-9999px', top: '-9999px', visibility: 'hidden' }} 
             aria-hidden="true"
         ></div>
       )}
@@ -303,7 +290,7 @@ export function ContactForm() {
           disabled={isLoading}
           className="w-full bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white font-medium tracking-wide py-6 disabled:opacity-70"
         >
-          {isLoading ? (formConfig.messages?.loadingText || "ENVIANDO...") : (formConfig.messages?.submitText || "ENVIAR MENSAGEM")}
+          {isLoading ? (messages?.loadingText || "ENVIANDO...") : (messages?.submitText || "ENVIAR MENSAGEM")}
         </Button>
       </form>
     </>
